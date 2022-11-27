@@ -39,11 +39,19 @@ void MainWindow::addNewDownload()
 void MainWindow::closeProcess(int processNumber){
     allDownloadsPtr[processNumber]->close( );
     //Now we should decrease the process numbers that stands after deleted one
-    for (int i = processNumber+1; i<allDownloadsPtr.length(); i++){
+    for (int i = processNumber+1; i < allDownloadsPtr.length(); i++){
         allDownloadsPtr[i]->downloadNumber--; //Decrease the process number on 1 in every process after deleted;
     }
     downloadsNumberTotal--;
     allDownloadsPtr.remove(processNumber);
 
+}
+
+
+void MainWindow::on_stopAllButton_clicked()
+{
+    for (int i = 0; i < allDownloadsPtr.length(); ){ //We do not increment the i, since we delete these processes one by one
+        emit allDownloadsPtr[i]->closeThisProcess(allDownloadsPtr[i]->downloadNumber); //For every process we call closeThisProcess SIGNAL
+    }
 }
 

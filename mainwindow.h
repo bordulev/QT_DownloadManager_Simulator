@@ -24,6 +24,8 @@ private slots:  //SLOT is a Function, that is called, when the SIGNAL is appeare
     void on_startNewButton_clicked();
     void addNewDownload();
 
+    void on_stopAllButton_clicked();
+
 public slots: //Public, because they are connected to other classes
     void closeProcess(int);
 
