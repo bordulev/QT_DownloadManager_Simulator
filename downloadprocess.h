@@ -2,6 +2,7 @@
 #define DOWNLOADPROCESS_H
 
 #include <QWidget>
+#include <QThread>
 
 namespace Ui {
 class DownloadProcess;
@@ -17,6 +18,7 @@ public:
     int downloadNumber;
 
     void writeID();
+    void fillDownloadBar();
 
 private:
     Ui::DownloadProcess *ui;

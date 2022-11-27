@@ -32,6 +32,7 @@ void MainWindow::addNewDownload()
     newProcess->setAttribute(Qt::WA_DeleteOnClose, true); // Delete object, if it is closed
     newProcess->downloadNumber = downloadsNumberTotal; //Download ID
     newProcess->writeID();
+    newProcess->fillDownloadBar();
     allDownloadsPtr.append(newProcess);
     downloadsNumberTotal++;
     }
@@ -46,7 +47,6 @@ void MainWindow::closeProcess(int processNumber){
     allDownloadsPtr.remove(processNumber);
 
 }
-
 
 void MainWindow::on_stopAllButton_clicked()
 {

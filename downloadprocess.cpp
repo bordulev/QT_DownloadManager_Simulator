@@ -36,3 +36,10 @@ void DownloadProcess::writeID(){
     ui->idLabel->setText("ID: " + new_label);
 }
 
+void DownloadProcess::fillDownloadBar()
+{
+    for (int percentVal = 0; percentVal < 50; percentVal++){
+        ui->progressBar->setValue(percentVal);
+    }
+}
+
