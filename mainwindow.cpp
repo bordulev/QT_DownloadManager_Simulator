@@ -39,6 +39,9 @@ void MainWindow::addNewDownload()
     }
 
 void MainWindow::closeProcess(int processNumber){
+    //mThread->Stop = true;
+    //allDownloadsPtr[processNumber]->mThread->Stop = true;
+
     allDownloadsPtr[processNumber]->close( );
     //Now we should decrease the process numbers that stands after deleted one
     for (int i = processNumber+1; i < allDownloadsPtr.length(); i++){

@@ -7,7 +7,7 @@ DownloadProcess::DownloadProcess(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    mThread = new DownloadThread(this); //This way, when the forms closes, the deletes out of memory automatically
+    mThread = new DownloadThread(this); //This way, when the form closes, the deletes out of memory automatically
     connect(mThread, SIGNAL(AddPercent(int)), this, SLOT(on_AddPercent(int)));
 }
 
@@ -19,6 +19,7 @@ DownloadProcess::~DownloadProcess()
 void DownloadProcess::on_stopButton_clicked()
 {
     mThread->Stop = true; //Stop generating percents
+    //delete &mThread;
     emit closeThisProcess(downloadNumber); //emit EMITS the SIGNAL that we want
     this->close();
 }
@@ -41,7 +42,7 @@ void DownloadProcess::writeID(){
 }
 
 void DownloadProcess::on_AddPercent(int Percent){
-    //ui->progressBar->setValue(Percent);
-    ui->percentLabel->setText(QString::number(Percent));
+    ui->progressBar->setValue(Percent);
+    ui->percentLabel->setText(QString::number(Percent) + "%");
 
 }

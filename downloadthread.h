@@ -9,7 +9,7 @@ class DownloadThread : public QThread
 public:
     explicit DownloadThread(QObject *parent = nullptr);
     void run();
-    bool Stop;
+    bool Stop = false;
 
 signals:
     void AddPercent(int);
