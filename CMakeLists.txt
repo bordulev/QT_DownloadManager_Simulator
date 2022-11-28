@@ -22,6 +22,8 @@ set(PROJECT_SOURCES
         downloadprocess.h
         downloadprocess.cpp
         downloadprocess.ui
+        downloadthread.h
+        downloadthread.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

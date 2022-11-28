@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QVector> //To save all the downloads data
+#include <QThread>
 #include "downloadprocess.h"
 
 QT_BEGIN_NAMESPACE

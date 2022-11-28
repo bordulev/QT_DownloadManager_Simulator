@@ -1,8 +1,8 @@
 #ifndef DOWNLOADPROCESS_H
 #define DOWNLOADPROCESS_H
 
+#include "downloadthread.h"
 #include <QWidget>
-#include <QThread>
 
 namespace Ui {
 class DownloadProcess;
@@ -18,7 +18,8 @@ public:
     int downloadNumber;
 
     void writeID();
-    void fillDownloadBar();
+    DownloadThread *mThread;
+
 
 private:
     Ui::DownloadProcess *ui;
@@ -30,6 +31,7 @@ private slots:
     void on_stopButton_clicked();
     void on_pauseButton_clicked();
     void on_resumeButton_clicked();
+    void on_AddPercent(int);
 };
 
 #endif // DOWNLOADPROCESS_H
