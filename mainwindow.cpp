@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     downloadsNumberTotal = 0;
+    this->setFixedSize(this->size());
 }
 
 MainWindow::~MainWindow()
