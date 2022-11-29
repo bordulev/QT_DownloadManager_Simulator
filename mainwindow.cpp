@@ -17,6 +17,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_startNewButton_clicked()
 {
+    processID ++;
     addNewDownload();
 }
 
@@ -33,7 +34,7 @@ void MainWindow::addNewDownload()
     connect(newProcess, SIGNAL(resumeThisProcess(int)), this, SLOT(resumeProcess(int)));
     newProcess->setAttribute(Qt::WA_DeleteOnClose, true); // Delete object, if it is closed
     newProcess->downloadNumber = downloadsNumberTotal; //Download ID
-    newProcess->writeID();
+    newProcess->writeID(processID);
     //Start gaining the pecents
     newProcess->mThread->start();
     allDownloadsPtr.append(newProcess);
@@ -73,6 +74,7 @@ void MainWindow::resumeProcess(int processNumber)
 
 void MainWindow::on_stopAllButton_clicked()
 {
+    processID = 0;
     for (int i = 0; i < allDownloadsPtr.length(); ){ //We do not increment the i, since we delete these processes one by one
         emit allDownloadsPtr[i]->closeThisProcess(allDownloadsPtr[i]->downloadNumber); //For every process we call closeThisProcess SIGNAL
     }

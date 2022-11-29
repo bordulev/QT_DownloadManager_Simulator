@@ -33,9 +33,9 @@ void DownloadProcess::on_resumeButton_clicked()
     emit resumeThisProcess(downloadNumber);
 }
 
-void DownloadProcess::writeID(){
+void DownloadProcess::writeID(int processID){
     QString new_label;
-    new_label = QString::number(this->downloadNumber);
+    new_label = QString::number(processID);
     ui->idLabel->setText("ID: " + new_label);
 }
 

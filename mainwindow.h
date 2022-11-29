@@ -18,6 +18,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     int downloadsNumberTotal; //This is needed to place new downloads on its places (rows)
+    int processID = 0;
     QVector<DownloadProcess *> allDownloadsPtr;
 
 private slots:  //SLOT is a Function, that is called, when the SIGNAL is appeared. Slot includes instructions what to do,

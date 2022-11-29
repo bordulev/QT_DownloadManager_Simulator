@@ -16,9 +16,9 @@ public:
     explicit DownloadProcess(QWidget *parent = nullptr);
     ~DownloadProcess();
     int downloadNumber;
-
-    void writeID();
     DownloadThread *mThread;
+
+    void writeID(int processID);
 
 
 private:
