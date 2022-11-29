@@ -24,17 +24,13 @@ void MainWindow::on_startNewButton_clicked()
 
 void MainWindow::addNewDownload()
 {
-    DownloadProcess *newProcess = new DownloadProcess(this); //Create new object (our download process)
-    //ui->downloadsLayout->addWidget(newProcess, downloadsNumberTotal);
-    ui->downloadsLayout->insertWidget(downloadsNumberTotal, newProcess); //insert widget between spacer and the top
-    connect(newProcess, SIGNAL(closeThisProcess(int)), this, SLOT(closeProcess(int)));  // connects the signal (trigger) and
-    //the slot (function, that is triggered). This string just means, that we trigger closeProcess SLOT, defined in this class,
-    //when we receive the SIGNAL, defined in the class of NewProcess. So, basically we just explain to the program, that new process
-    //should be closed when we push STOP button at this process
+    DownloadProcess *newProcess = new DownloadProcess(this);
+    ui->downloadsLayout->insertWidget(downloadsNumberTotal, newProcess);
+    connect(newProcess, SIGNAL(closeThisProcess(int)), this, SLOT(closeProcess(int)));
     connect(newProcess, SIGNAL(pauseThisProcess(int)), this, SLOT(pauseProcess(int)));
     connect(newProcess, SIGNAL(resumeThisProcess(int)), this, SLOT(resumeProcess(int)));
     newProcess->setAttribute(Qt::WA_DeleteOnClose, true); // Delete object, if it is closed
-    newProcess->downloadNumber = downloadsNumberTotal; //Download ID
+    newProcess->downloadNumber = downloadsNumberTotal;
     newProcess->writeID(processID);
     //Start gaining the pecents
     newProcess->mThread->start();
@@ -47,7 +43,7 @@ void MainWindow::closeProcess(int processNumber)
     allDownloadsPtr[processNumber]->close( );
     //Now we should decrease the process numbers that stands after deleted one
     for (int i = processNumber+1; i < allDownloadsPtr.length(); i++){
-        allDownloadsPtr[i]->downloadNumber--; //Decrease the process number on 1 in every process after deleted;
+        allDownloadsPtr[i]->downloadNumber--;
     }
     downloadsNumberTotal--;
     allDownloadsPtr.remove(processNumber);
@@ -69,7 +65,7 @@ void MainWindow::on_stopAllButton_clicked()
 {
     processID = 0;
 
-    for (int i = 0; i < allDownloadsPtr.length(); i++){ //We do not increment the i, since we delete these processes one by one
+    for (int i = 0; i < allDownloadsPtr.length(); i++){
         //Switch Off PAUSE, if it is ON
         if (allDownloadsPtr[i]->mThread->Pause == true){
             allDownloadsPtr[i]->mThread->Pause = false;
@@ -84,7 +80,7 @@ void MainWindow::on_stopAllButton_clicked()
 void MainWindow::on_pauseAllButton_clicked()
 {
     for (int i = 0; i < allDownloadsPtr.length(); i++){
-        emit allDownloadsPtr[i]->pauseThisProcess(allDownloadsPtr[i]->downloadNumber); //For every process we call pauseThisProcess SIGNAL
+        emit allDownloadsPtr[i]->pauseThisProcess(allDownloadsPtr[i]->downloadNumber);
     }
 }
 
@@ -92,7 +88,7 @@ void MainWindow::on_pauseAllButton_clicked()
 void MainWindow::on_resumeAllButton_clicked()
 {
     for (int i = 0; i < allDownloadsPtr.length(); i++){
-        emit allDownloadsPtr[i]->resumeThisProcess(allDownloadsPtr[i]->downloadNumber); //For every process we call pauseThisProcess SIGNAL
+        emit allDownloadsPtr[i]->resumeThisProcess(allDownloadsPtr[i]->downloadNumber);
     }
 }
 

@@ -10,8 +10,7 @@ void DownloadThread::run()
 {
     for (int i = 0; i <= 100; i++){
 
-        //To avoid any embarassing crashes
-        QMutex mutex;
+        QMutex mutex; //To avoid any embarassing crashes
         mutex.lock();
         if (this->Stop) break;
         if (this->Pause) pauseCond.wait(&mutex);

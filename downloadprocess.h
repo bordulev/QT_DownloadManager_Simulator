@@ -3,7 +3,6 @@
 
 #include "downloadthread.h"
 #include <QWidget>
-#include <QDebug>
 
 namespace Ui {
 class DownloadProcess;

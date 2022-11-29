@@ -17,12 +17,11 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    int downloadsNumberTotal; //This is needed to place new downloads on its places (rows)
+    int downloadsNumberTotal;
     int processID = 0;
     QVector<DownloadProcess *> allDownloadsPtr;
 
-private slots:  //SLOT is a Function, that is called, when the SIGNAL is appeared. Slot includes instructions what to do,
-                //when signal appears. Signals and Slots could be connected by connect() function
+private slots:
     void on_startNewButton_clicked();
     void addNewDownload();
 

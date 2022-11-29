@@ -27,8 +27,7 @@ void DownloadProcess::on_stopButton_clicked()
     mThread->Stop = true; //Stop generating percents
     mThread->wait(); //Wait until the thread is finished stopping
     //Here is the finished() SIGNAL is emitted by thread
-    //We do not close the process here, since it will be done in on_ThreadFinished()
-
+    //We do not close the process here, since it will be done in on_ThreadFinished() SLOT
 }
 
 void DownloadProcess::on_pauseButton_clicked()
