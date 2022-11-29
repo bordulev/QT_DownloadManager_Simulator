@@ -18,8 +18,6 @@ DownloadProcess::~DownloadProcess()
 
 void DownloadProcess::on_stopButton_clicked()
 {
-    mThread->Stop = true; //Stop generating percents
-    //delete &mThread;
     emit closeThisProcess(downloadNumber); //emit EMITS the SIGNAL that we want
     this->close();
 }

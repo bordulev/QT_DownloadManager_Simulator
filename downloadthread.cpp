@@ -21,5 +21,4 @@ void DownloadThread::run()
 
         this->msleep(100); //the speed of downloading (percent in how much time)
     }
-
 }

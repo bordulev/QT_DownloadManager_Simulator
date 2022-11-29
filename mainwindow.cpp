@@ -38,9 +38,10 @@ void MainWindow::addNewDownload()
     downloadsNumberTotal++;
     }
 
-void MainWindow::closeProcess(int processNumber){
-    //mThread->Stop = true;
-    //allDownloadsPtr[processNumber]->mThread->Stop = true;
+void MainWindow::closeProcess(int processNumber)
+{
+    allDownloadsPtr[processNumber]->mThread->Stop = true;
+    allDownloadsPtr[processNumber]->mThread->wait(); //Wait until the thread is finished stopping
 
     allDownloadsPtr[processNumber]->close( );
     //Now we should decrease the process numbers that stands after deleted one
