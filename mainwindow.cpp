@@ -68,7 +68,8 @@ void MainWindow::resumeProcess(int processNumber)
 void MainWindow::on_stopAllButton_clicked()
 {
     processID = 0;
-    for (int i = 0; i < allDownloadsPtr.length(); ){ //We do not increment the i, since we delete these processes one by one
+
+    for (int i = 0; i < allDownloadsPtr.length(); i++){ //We do not increment the i, since we delete these processes one by one
         //Switch Off PAUSE, if it is ON
         if (allDownloadsPtr[i]->mThread->Pause == true){
             allDownloadsPtr[i]->mThread->Pause = false;
@@ -76,7 +77,6 @@ void MainWindow::on_stopAllButton_clicked()
         }
         allDownloadsPtr[i]->mThread->Stop = true; //Stop generating percents
         allDownloadsPtr[i]->mThread->wait(); //Wait until the thread is finished stopping
-        emit allDownloadsPtr[i]->closeThisProcess(allDownloadsPtr[i]->downloadNumber); //For every process we call closeThisProcess SIGNAL
     }
 }
 

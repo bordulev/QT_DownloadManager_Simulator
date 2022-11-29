@@ -9,6 +9,7 @@ DownloadProcess::DownloadProcess(QWidget *parent) :
 
     mThread = new DownloadThread(this); //This way, when the form closes, the deletes out of memory automatically
     connect(mThread, SIGNAL(AddPercent(int)), this, SLOT(on_AddPercent(int)));
+    connect(mThread, SIGNAL(finished()), this, SLOT(on_ThreadFinished()));
 }
 
 DownloadProcess::~DownloadProcess()
@@ -25,8 +26,9 @@ void DownloadProcess::on_stopButton_clicked()
     }
     mThread->Stop = true; //Stop generating percents
     mThread->wait(); //Wait until the thread is finished stopping
-    emit closeThisProcess(downloadNumber); //emit EMITS the SIGNAL that we want
-    this->close();
+    //Here is the finished() SIGNAL is emitted by thread
+    //We do not close the process here, since it will be done in on_ThreadFinished()
+
 }
 
 void DownloadProcess::on_pauseButton_clicked()
@@ -49,4 +51,10 @@ void DownloadProcess::writeID(int processID){
 void DownloadProcess::on_AddPercent(int Percent){
     ui->progressBar->setValue(Percent);
     ui->percentLabel->setText(QString::number(Percent) + "%");
+}
+
+void DownloadProcess::on_ThreadFinished()
+{
+    emit closeThisProcess(downloadNumber);
+    this->close();
 }

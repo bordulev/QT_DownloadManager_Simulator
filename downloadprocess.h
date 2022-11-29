@@ -3,6 +3,7 @@
 
 #include "downloadthread.h"
 #include <QWidget>
+#include <QDebug>
 
 namespace Ui {
 class DownloadProcess;
@@ -34,6 +35,7 @@ private slots:
     void on_pauseButton_clicked();
     void on_resumeButton_clicked();
     void on_AddPercent(int);
+    void on_ThreadFinished();
 };
 
 #endif // DOWNLOADPROCESS_H
