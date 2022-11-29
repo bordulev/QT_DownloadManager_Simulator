@@ -29,6 +29,8 @@ void MainWindow::addNewDownload()
     //the slot (function, that is triggered). This string just means, that we trigger closeProcess SLOT, defined in this class,
     //when we receive the SIGNAL, defined in the class of NewProcess. So, basically we just explain to the program, that new process
     //should be closed when we push STOP button at this process
+    connect(newProcess, SIGNAL(pauseThisProcess(int)), this, SLOT(pauseProcess(int)));
+    connect(newProcess, SIGNAL(resumeThisProcess(int)), this, SLOT(resumeProcess(int)));
     newProcess->setAttribute(Qt::WA_DeleteOnClose, true); // Delete object, if it is closed
     newProcess->downloadNumber = downloadsNumberTotal; //Download ID
     newProcess->writeID();
@@ -40,6 +42,11 @@ void MainWindow::addNewDownload()
 
 void MainWindow::closeProcess(int processNumber)
 {
+    //Switch Off PAUSE, if it is ON
+    if (allDownloadsPtr[processNumber]->mThread->Pause == true){
+        allDownloadsPtr[processNumber]->mThread->Pause = false;
+        allDownloadsPtr[processNumber]->mThread->pauseCond.wakeAll(); //
+    }
     allDownloadsPtr[processNumber]->mThread->Stop = true;
     allDownloadsPtr[processNumber]->mThread->wait(); //Wait until the thread is finished stopping
 
@@ -53,10 +60,37 @@ void MainWindow::closeProcess(int processNumber)
 
 }
 
+void MainWindow::pauseProcess(int processNumber)
+{
+    allDownloadsPtr[processNumber]->mThread->Pause = true;
+}
+
+void MainWindow::resumeProcess(int processNumber)
+{
+    allDownloadsPtr[processNumber]->mThread->Pause = false;
+    allDownloadsPtr[processNumber]->mThread->pauseCond.wakeAll(); //
+}
+
 void MainWindow::on_stopAllButton_clicked()
 {
     for (int i = 0; i < allDownloadsPtr.length(); ){ //We do not increment the i, since we delete these processes one by one
         emit allDownloadsPtr[i]->closeThisProcess(allDownloadsPtr[i]->downloadNumber); //For every process we call closeThisProcess SIGNAL
+    }
+}
+
+
+void MainWindow::on_pauseAllButton_clicked()
+{
+    for (int i = 0; i < allDownloadsPtr.length(); i++){
+        emit allDownloadsPtr[i]->pauseThisProcess(allDownloadsPtr[i]->downloadNumber); //For every process we call pauseThisProcess SIGNAL
+    }
+}
+
+
+void MainWindow::on_resumeAllButton_clicked()
+{
+    for (int i = 0; i < allDownloadsPtr.length(); i++){
+        emit allDownloadsPtr[i]->resumeThisProcess(allDownloadsPtr[i]->downloadNumber); //For every process we call pauseThisProcess SIGNAL
     }
 }
 

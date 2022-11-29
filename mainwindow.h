@@ -27,8 +27,14 @@ private slots:  //SLOT is a Function, that is called, when the SIGNAL is appeare
 
     void on_stopAllButton_clicked();
 
+    void on_pauseAllButton_clicked();
+
+    void on_resumeAllButton_clicked();
+
 public slots: //Public, because they are connected to other classes
     void closeProcess(int);
+    void pauseProcess(int);
+    void resumeProcess(int);
 
 
 private:

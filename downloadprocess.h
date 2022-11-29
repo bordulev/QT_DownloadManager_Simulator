@@ -26,6 +26,8 @@ private:
 
 signals:
     void closeThisProcess(int);
+    void pauseThisProcess(int);
+    void resumeThisProcess(int);
 
 private slots:
     void on_stopButton_clicked();

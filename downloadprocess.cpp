@@ -24,13 +24,13 @@ void DownloadProcess::on_stopButton_clicked()
 
 void DownloadProcess::on_pauseButton_clicked()
 {
-
+    emit pauseThisProcess(downloadNumber);
 }
 
 
 void DownloadProcess::on_resumeButton_clicked()
 {
-
+    emit resumeThisProcess(downloadNumber);
 }
 
 void DownloadProcess::writeID(){
