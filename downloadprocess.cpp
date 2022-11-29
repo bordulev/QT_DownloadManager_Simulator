@@ -18,7 +18,13 @@ DownloadProcess::~DownloadProcess()
 
 void DownloadProcess::on_stopButton_clicked()
 {
+    //Switch Off PAUSE, if it is ON
+    if (mThread->Pause == true){
+        mThread->Pause = false;
+        mThread->pauseCond.wakeAll();
+    }
     mThread->Stop = true; //Stop generating percents
+    mThread->wait(); //Wait until the thread is finished stopping
     emit closeThisProcess(downloadNumber); //emit EMITS the SIGNAL that we want
     this->close();
 }

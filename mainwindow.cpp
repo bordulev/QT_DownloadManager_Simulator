@@ -44,14 +44,6 @@ void MainWindow::addNewDownload()
 
 void MainWindow::closeProcess(int processNumber)
 {
-    //Switch Off PAUSE, if it is ON
-    if (allDownloadsPtr[processNumber]->mThread->Pause == true){
-        allDownloadsPtr[processNumber]->mThread->Pause = false;
-        allDownloadsPtr[processNumber]->mThread->pauseCond.wakeAll(); //
-    }
-    allDownloadsPtr[processNumber]->mThread->Stop = true;
-    allDownloadsPtr[processNumber]->mThread->wait(); //Wait until the thread is finished stopping
-
     allDownloadsPtr[processNumber]->close( );
     //Now we should decrease the process numbers that stands after deleted one
     for (int i = processNumber+1; i < allDownloadsPtr.length(); i++){
@@ -77,6 +69,13 @@ void MainWindow::on_stopAllButton_clicked()
 {
     processID = 0;
     for (int i = 0; i < allDownloadsPtr.length(); ){ //We do not increment the i, since we delete these processes one by one
+        //Switch Off PAUSE, if it is ON
+        if (allDownloadsPtr[i]->mThread->Pause == true){
+            allDownloadsPtr[i]->mThread->Pause = false;
+            allDownloadsPtr[i]->mThread->pauseCond.wakeAll();
+        }
+        allDownloadsPtr[i]->mThread->Stop = true; //Stop generating percents
+        allDownloadsPtr[i]->mThread->wait(); //Wait until the thread is finished stopping
         emit allDownloadsPtr[i]->closeThisProcess(allDownloadsPtr[i]->downloadNumber); //For every process we call closeThisProcess SIGNAL
     }
 }
