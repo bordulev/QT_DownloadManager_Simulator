@@ -18,6 +18,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     int downloadsNumberTotal; //This is needed to place new downloads on its places (rows)
+    int processID = 0;
     QVector<DownloadProcess *> allDownloadsPtr;
 
 private slots:  //SLOT is a Function, that is called, when the SIGNAL is appeared. Slot includes instructions what to do,
@@ -27,8 +28,14 @@ private slots:  //SLOT is a Function, that is called, when the SIGNAL is appeare
 
     void on_stopAllButton_clicked();
 
+    void on_pauseAllButton_clicked();
+
+    void on_resumeAllButton_clicked();
+
 public slots: //Public, because they are connected to other classes
     void closeProcess(int);
+    void pauseProcess(int);
+    void resumeProcess(int);
 
 
 private:

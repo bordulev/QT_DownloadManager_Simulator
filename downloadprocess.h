@@ -16,9 +16,9 @@ public:
     explicit DownloadProcess(QWidget *parent = nullptr);
     ~DownloadProcess();
     int downloadNumber;
-
-    void writeID();
     DownloadThread *mThread;
+
+    void writeID(int processID);
 
 
 private:
@@ -26,6 +26,8 @@ private:
 
 signals:
     void closeThisProcess(int);
+    void pauseThisProcess(int);
+    void resumeThisProcess(int);
 
 private slots:
     void on_stopButton_clicked();
